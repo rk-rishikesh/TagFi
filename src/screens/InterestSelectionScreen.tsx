@@ -29,8 +29,7 @@ const InterestSelectionScreen = () => {
             <div className="flex flex-col items-center mb-4 mt-4 mb-8">
                 <h3 className="text-xl w-full text-left p-5">Select Your Interest</h3>
                 <div
-                    className="flex flex-col space-y-4 px-5 w-full max-h-64 overflow-y-auto"
-                    id="select-interest"
+                    className="flex flex-col space-y-4 px-5 w-full max-h-64 overflow-y-auto items-center"
                 >
                     {options.map(option => (
                         <button
