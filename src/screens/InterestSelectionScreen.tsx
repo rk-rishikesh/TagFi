@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+const options = ['Pets', 'Bags', 'Vehicle', 'Sports', 'Music', 'Travel'];
 
 const InterestSelectionScreen = () => {
+    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+
+    const toggleOption = (option: string) => {
+        setSelectedOptions(prevState =>
+            prevState.includes(option)
+                ? prevState.filter(item => item !== option)
+                : [...prevState, option]
+        );
+    };
+
     return (
         <div className="flex flex-col h-screen bg-[#E0E0E2]">
             <div className="flex justify-center py-4">
@@ -14,12 +26,24 @@ const InterestSelectionScreen = () => {
                     <p className="text-3xl font-semibold w-full text-left mt-4">#00x0de000000000</p>
                 </div>
             </div>
-            <div className="flex flex-col items-center mb-4 space-y-4 mb-14">
+            <div className="flex flex-col items-center mb-4 mt-4 mb-8">
                 <h3 className="text-xl w-full text-left p-5">Select Your Interest</h3>
-                <div className="flex flex-col space-y-4 px-5 w-full justify-center items-center">
-                    <button className="px-6 py-2 bg-white text-black rounded-lg h-14 text-xl w-full lg:w-5/12">Pets</button>
-                    <button className="px-6 py-2 bg-white text-black rounded-lg h-14 text-xl w-full lg:w-5/12">WildLife</button>
-                    <button className="px-6 py-2 bg-white text-black rounded-lg h-14 text-xl w-full lg:w-5/12">Vehicle</button>
+                <div
+                    className="flex flex-col space-y-4 px-5 w-full max-h-64 overflow-y-auto"
+                    id="select-interest"
+                >
+                    {options.map(option => (
+                        <button
+                            key={option}
+                            onClick={() => toggleOption(option)}
+                            className={`p-5 rounded-lg h-16 text-xl w-full lg:w-5/12 ${selectedOptions.includes(option)
+                                ? 'bg-blue-500 text-white'
+                                : 'bg-white text-black'
+                                }`}
+                        >
+                            {option}
+                        </button>
+                    ))}
                 </div>
             </div>
         </div>
