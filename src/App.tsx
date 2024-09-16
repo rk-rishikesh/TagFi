@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import DownloadScreen from './screens/DownloadScreen';
+import LoginScreen from './screens/LoginScreen';
+import CatConfirmationScreen from './screens/CatConfirmationScreen';
+import CameraScreen from './screens/CameraScreen';
+import BalanceScreen from './screens/BalanceScreen';
+import InterestSelectionScreen from './screens/InterestSelectionScreen';
+import "./App.css"
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<DownloadScreen />} />
+          <Route path="/screen2" element={<LoginScreen />} />
+          <Route path="/screen3" element={<CatConfirmationScreen />} />
+          <Route path="/screen4" element={<CameraScreen />} />
+          <Route path="/screen5" element={<BalanceScreen />} />
+          <Route path="/screen6" element={<InterestSelectionScreen />} />
+        </Routes>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;
