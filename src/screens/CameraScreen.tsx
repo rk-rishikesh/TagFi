@@ -1,9 +1,11 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Header from '../components/Header';
+import Slider from 'react-slick';
 
 const CameraScreen = () => {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const sliderRef = useRef<Slider | null>(null);
     const [isCameraOpen, setIsCameraOpen] = useState(true);
     const [photo, setPhoto] = useState<string | null>(null);
 
@@ -52,6 +54,26 @@ const CameraScreen = () => {
         setIsCameraOpen(false);
     };
 
+    // Carousel settings
+    const carouselSettings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: false,
+        autoplaySpeed: 2000,
+        centerMode: true,
+        centerPadding: '0px',
+    };
+
+    const handleCaptureClick = () => {
+        //capturePhoto(); //function to capture photo
+        if (sliderRef.current) {
+            sliderRef.current.slickNext();
+        }
+    };
+
     return (
         <div className="flex flex-col h-screen bg-[#E0E0E2] relative">
             <div className="flex-grow relative">
@@ -63,12 +85,18 @@ const CameraScreen = () => {
                 )}
                 <canvas ref={canvasRef} className="hidden" width={640} height={480}></canvas>
 
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center justify-center">
-                    <div
-                        className="w-20 h-20 bg-white rounded-full shadow-lg -mt-12 border border-8 border-[#E0E0E2]"
-                        onClick={capturePhoto}
-                    ></div>
-                </div>
+                <Slider ref={sliderRef} {...carouselSettings} className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-full h-[120px]">
+                    {[...Array(5)].map((_, index) => (
+                        <div key={index} className="filter-container flex items-center justify-center">
+                            <div
+                                className="w-24 h-24 bg-white rounded-full shadow-lg border border-8 border-[#E0E0E2] flex items-center justify-center cursor-pointer"
+                                onClick={handleCaptureClick}
+                            >
+                                {/* comment */}
+                            </div>
+                        </div>
+                    ))}
+                </Slider>
             </div>
             <Header onOptionChange={handleHeaderOptionChange} />
         </div>
