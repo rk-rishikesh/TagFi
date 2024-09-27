@@ -75,8 +75,8 @@ const CameraScreen = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen bg-[#E0E0E2] relative">
-            <div className="flex-grow relative">
+        <div className="flex flex-col min-h-screen bg-[#E0E0E2] relative">
+            <div className="flex-grow relative mt-16 md:mt-0">
                 <video ref={videoRef} autoPlay playsInline className="w-full h-full object-cover" />
                 {photo && (
                     <div className="absolute bottom-4 left-4 w-24 h-auto rounded-md border border-gray-300 shadow-lg z-10">
@@ -98,7 +98,7 @@ const CameraScreen = () => {
                     ))}
                 </Slider>
             </div>
-            <Header onOptionChange={handleHeaderOptionChange} />
+            <div className=" p-4 md:p-6"><Header onOptionChange={handleHeaderOptionChange} /></div>
         </div>
     );
 };

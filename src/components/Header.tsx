@@ -24,8 +24,8 @@ const Header: React.FC<HeaderProps> = ({ onOptionChange }) => {
     };
 
     return (
-        <div className='w-full flex justify-center items-center'>
-            <div className="flex justify-around py-4 bg-[#727774] rounded-full mt-6 w-full lg:w-[30%]">
+        <div className='w-full flex justify-center items-center mb-4'>
+            <div className="flex justify-around py-4 bg-[#727774] rounded-full mt-6 w-[80%] lg:w-[30%]">
                 <div
                     className='bg-white rounded-full w-14 h-14 cursor-pointer'
                     onClick={handleCameraClick}
