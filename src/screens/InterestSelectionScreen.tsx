@@ -13,7 +13,6 @@ const InterestSelectionScreen = () => {
         );
     };
 
-    
     return (
         <div className="flex flex-col min-h-screen bg-[#E0E0E2]">
             <div className="flex justify-center py-4">
