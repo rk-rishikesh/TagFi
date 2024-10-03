@@ -7,7 +7,7 @@ const CameraScreen = () => {
     const [isCameraOpen, setIsCameraOpen] = useState(true);
     const [photo, setPhoto] = useState<string | null>(null);
     const [isFrontCamera, setIsFrontCamera] = useState(true);
-    const [activeFilterIndex, setActiveFilterIndex] = useState(0);
+    const [activeFilterIndex, setActiveFilterIndex] = useState(2);
 
     const filters = [...Array(5)];
 
@@ -44,7 +44,8 @@ const CameraScreen = () => {
         }
     };
 
-    const capturePhoto = () => {
+    const capturePhoto = (index: number) => {
+        setActiveFilterIndex(index);
         if (canvasRef.current && videoRef.current) {
             const context = canvasRef.current.getContext('2d');
             if (context) {
@@ -71,12 +72,11 @@ const CameraScreen = () => {
                 <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-full overflow-x-auto flex gap-2">
                     <motion.div
                         className="flex p-4"
-                        animate={{ x: -activeFilterIndex * 100 }}
                         transition={{ type: "spring", stiffness: 300 }}
                     >
                         {filters.map((_, index) => (
-                            <div key={index} className="w-16 h-16 mx-2 bg-white rounded-full border border-4 border-[#b5b5bd] flex items-center justify-center cursor-pointer p-2"
-                                onClick={capturePhoto}>
+                            <div key={index} className={`w-16 h-16 mx-2 bg-white rounded-full  ${activeFilterIndex === index ? 'border-blue-500' : 'border-[#b5b5bd]'} border border-4 flex items-center justify-center cursor-pointer p-2`}
+                                onClick={() => { capturePhoto(index) }}>
                                 <span className="text-center">Filter {index + 1}</span>
                             </div>
                         ))}
