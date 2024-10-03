@@ -13,8 +13,8 @@ const App = () => {
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<DownloadScreen />} />
-          <Route path="/screen2" element={<LoginScreen />} />
+          {/* <Route path="/" element={<DownloadScreen />} /> */}
+          <Route path="/" element={<LoginScreen />} />
           <Route path="/screen3" element={<CatConfirmationScreen />} />
           <Route path="/screen4" element={<CameraScreen />} />
           <Route path="/screen5" element={<BalanceScreen />} />

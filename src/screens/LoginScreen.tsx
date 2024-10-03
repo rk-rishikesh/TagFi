@@ -1,6 +1,8 @@
-import React from 'react';
+import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const LoginScreen = () => {
+    const navigate = useNavigate();
     return (
         <div className="flex flex-col items-center justify-between h-screen py-8 bg-[#E0E0E2] px-4 sm:px-8">
             <div className="bg-[#727774] rounded-full w-36 h-12 flex items-center justify-center p-2 sm:w-48 sm:h-14">
@@ -12,7 +14,7 @@ const LoginScreen = () => {
                 </div>
             </div>
             <div className="flex items-center justify-center mb-8 sm:mb-12">
-                <button className="px-4 py-2 bg-white text-black rounded w-full max-w-xs sm:w-48 sm:py-3 font-semibold text-lg sm:text-xl">
+                <button className="px-4 py-2 bg-white text-black rounded w-full max-w-xs sm:w-48 sm:py-3 font-semibold text-lg sm:text-xl" onClick={() => navigate('/screen3')}>
                     Login
                 </button>
             </div>

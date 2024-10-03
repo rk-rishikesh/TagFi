@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from 'react';
-import Header from '../components/Header';
 import Slider from 'react-slick';
 
 const CameraScreen = () => {
@@ -8,6 +7,7 @@ const CameraScreen = () => {
     const sliderRef = useRef<Slider | null>(null);
     const [isCameraOpen, setIsCameraOpen] = useState(true);
     const [photo, setPhoto] = useState<string | null>(null);
+    const [isFrontCamera, setIsFrontCamera] = useState(true);
 
     useEffect(() => {
         if (isCameraOpen) {
@@ -18,11 +18,13 @@ const CameraScreen = () => {
         return () => {
             closeCamera();
         };
-    }, [isCameraOpen]);
+    }, [isCameraOpen, isFrontCamera]);
 
     const openCamera = async () => {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: isFrontCamera ? 'user' : 'environment' } // Use facingMode to control camera
+            });
             if (videoRef.current) {
                 videoRef.current.srcObject = stream as MediaStream;
             }
@@ -50,11 +52,11 @@ const CameraScreen = () => {
         }
     };
 
-    const handleHeaderOptionChange = () => {
-        setIsCameraOpen(false);
+    const handleCameraFlip = () => {
+        setIsFrontCamera(prev => !prev);
     };
 
-    // Carousel settings
+
     const carouselSettings = {
         dots: false,
         infinite: true,
@@ -77,7 +79,7 @@ const CameraScreen = () => {
     return (
         <div className="flex flex-col min-h-screen bg-[#E0E0E2] relative">
             <div className="flex-grow relative mt-16 md:mt-0">
-                <video ref={videoRef} autoPlay playsInline className="w-full h-full object-cover" />
+                <video ref={videoRef} autoPlay playsInline className="w-full h-full object-cover fixed inset-0 z-0" />
                 {photo && (
                     <div className="absolute bottom-4 left-4 w-24 h-auto rounded-md border border-gray-300 shadow-lg z-10">
                         <img src={photo} alt="Captured" className="w-full h-full object-cover rounded-md" />
@@ -89,16 +91,20 @@ const CameraScreen = () => {
                     {[...Array(5)].map((_, index) => (
                         <div key={index} className="filter-container flex items-center justify-center">
                             <div
-                                className="w-24 h-24 bg-white rounded-full shadow-lg border border-8 border-[#E0E0E2] flex items-center justify-center cursor-pointer"
+                                className="w-20 h-20 bg-white rounded-full border border-8 border-[#b5b5bd] flex items-center justify-center cursor-pointer"
                                 onClick={handleCaptureClick}
                             >
-                                {/* comment */}
                             </div>
                         </div>
                     ))}
                 </Slider>
+                <button
+                    onClick={handleCameraFlip}
+                    className="w-16 h-16 absolute top-2 right-2 z-10"
+                >
+                    <img src='/images/cameraflip.png' alt='camera' />
+                </button>
             </div>
-            <div className=" p-4 md:p-6"><Header onOptionChange={handleHeaderOptionChange} /></div>
         </div>
     );
 };
