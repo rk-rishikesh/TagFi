@@ -30,7 +30,7 @@ const CameraScreen = () => {
         return () => {
             closeCamera();
         };
-    }, [isCameraOpen]);
+    }, [isCameraOpen, isFrontCamera]);
 
     const openCamera = async () => {
         try {
