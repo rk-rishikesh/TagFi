@@ -13,7 +13,13 @@ const CameraScreen = () => {
     const [showPhoto, setShowPhoto] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
 
-    const filters = [...Array(5)];
+    const filters = [
+        '/images/cat1.jpg',
+        '/images/cat2.jpg',
+        '/images/cat3.jpg',
+        '/images/cat4.jpg',
+        '/images/cat5.jpg'
+    ];
 
     useEffect(() => {
         if (isCameraOpen) {
@@ -88,10 +94,10 @@ const CameraScreen = () => {
                             className="flex p-4"
                             transition={{ type: "spring", stiffness: 300 }}
                         >
-                            {filters.map((_, index) => (
-                                <div key={index} className={`w-16 h-16 mx-2 bg-gradient-to-r from-[#e0e4e8] to-[#ffffff] shadow-lg rounded-full ${activeFilterIndex === index ? 'border-blue-500' : 'border-[#b5b5bd]'} border-4 flex items-center justify-center cursor-pointer p-2 hover:bg-blue-50 transition-all duration-300`}
+                            {filters.map((filter, index) => (
+                                <div key={index} className={`w-16 h-16 mx-2 bg-gradient-to-r from-[#e0e4e8] to-[#ffffff] shadow-lg rounded-full ${activeFilterIndex === index ? 'border-blue-500' : 'border-white'} border-4 flex items-center justify-center cursor-pointer hover:bg-blue-50 transition-all duration-300`}
                                     onClick={() => { capturePhoto(index) }}>
-                                    <span className="text-center text-gray-600">Filter {index + 1}</span>
+                                    <img src={filter} alt={`Filter ${index + 1}`} className="w-full h-full object-cover rounded-full" />
                                 </div>
                             ))}
                         </motion.div>
