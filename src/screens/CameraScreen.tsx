@@ -8,7 +8,7 @@ const CameraScreen = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isCameraOpen, setIsCameraOpen] = useState(true);
   const [photo, setPhoto] = useState<string | null>(null);
-  const [isFrontCamera, setIsFrontCamera] = useState(true);
+  const [isFrontCamera, setIsFrontCamera] = useState(false);
   const [activeFilterIndex, setActiveFilterIndex] = useState(2);
   const [showPhoto, setShowPhoto] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -145,14 +145,14 @@ const CameraScreen = () => {
       ) : (
         <div
           id="show-picture"
-          className="flex flex-col items-center justify-center h-full p-2"
+          className="flex flex-col items-center justify-center h-full"
         >
           {photo && !showPopup && (
             <>
               <img
                 src={photo}
                 alt="Captured"
-                className="w-[100%] h-[97vh] object-cover rounded-lg shadow-lg border border-gray-200"
+                className="w-[100%] h-[100vh] object-cover rounded-lg shadow-lg border border-gray-200"
               />
               <button
                 onClick={handlePublish}
@@ -167,11 +167,11 @@ const CameraScreen = () => {
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-opacity-50">
           <div className="flex flex-col items-center justify-centerp-6 rounded-lg transform scale-100 transition-transform duration-300 hover:scale-105">
-          <img
-                src="/images/tick.png"
-                alt="Captured"
-                className="w-full object-cover rounded-lg"
-              />
+            <img
+              src="/images/tick.png"
+              alt="Captured"
+              className="w-full object-cover rounded-lg"
+            />
             <h2 className="flex items-center justify-center text-xl text-gray-800 font-semibold">
               Picture published successfully!
             </h2>
