@@ -8,7 +8,7 @@ const CameraScreen = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isCameraOpen, setIsCameraOpen] = useState(true);
   const [photo, setPhoto] = useState<string | null>(null);
-  const [isFrontCamera, setIsFrontCamera] = useState(true);
+  const [isFrontCamera, setIsFrontCamera] = useState(false);
   const [activeFilterIndex, setActiveFilterIndex] = useState(2);
   const [showPhoto, setShowPhoto] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
