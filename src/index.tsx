@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
-import WalletProviders from "./components/walletProviders";
+import WalletProviders from "./components/WalletProviders";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
