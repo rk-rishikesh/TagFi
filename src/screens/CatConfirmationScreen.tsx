@@ -3,10 +3,10 @@ import Header from '../components/Header';
 
 const catData = [
     { img: '/images/cat1.jpg', question: 'Is this a cat?' },
-    { img: '/images/cat2.jpg', question: 'Is this a different cat?' },
-    { img: '/images/cat3.jpg', question: 'Does this look like a cat?' },
-    { img: '/images/cat4.jpg', question: 'How about this cat?' },
-    { img: '/images/cat5.jpg', question: 'Can you confirm this cat?' }
+    { img: '/images/cat2.jpg', question: 'Is this a cat?' },
+    { img: '/images/cat3.jpg', question: 'Is this a cat?' },
+    { img: '/images/cat4.jpg', question: 'Is this a cat?' },
+    { img: '/images/cat5.jpg', question: 'Is this a cat?' }
 ];
 
 const CatConfirmationScreen = () => {
@@ -37,7 +37,7 @@ const CatConfirmationScreen = () => {
                 style={{ backgroundImage: `url(${catData[currentIndex].img})` }}
             >
                 <div className="flex justify-start p-5">
-                    <img src="/images/user-profile.png" alt="User Profile" className="w-16 h-16 rounded-full sm:w-20 sm:h-20" />
+                    <img src="/images/user-profile.jpg" alt="User Profile" className="w-12 h-12 rounded-full sm:w-20 sm:h-20" />
                 </div>
                 <div className="flex flex-col items-center flex-grow p-4 sm:p-5">
                     <div className="relative w-full flex-grow flex items-center justify-center">

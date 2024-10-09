@@ -1,48 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const options = ['Pets', 'Bags', 'Vehicle', 'Sports', 'Music', 'Travel'];
+const options = ["Pets", "Bags", "Vehicle", "Sports", "Music", "Travel"];
 
 const InterestSelectionScreen = () => {
-    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-
-    const toggleOption = (option: string) => {
-        setSelectedOptions(prevState =>
-            prevState.includes(option)
-                ? prevState.filter(item => item !== option)
-                : [...prevState, option]
-        );
-    };
-
-    return (
-        <div className="flex flex-col min-h-screen bg-[#E0E0E2]">
-            <div className="flex justify-center py-4">
-                <div className="bg-[#727774] rounded-full w-40 h-14 md:w-48 md:h-16 flex items-center justify-center p-4">
-                    <h1 className="text-xl md:text-2xl font-bold text-white">TagFi</h1>
-                </div>
-            </div>
-            <div className="flex flex-col flex-grow items-start justify-start text-center px-4 py-2 mt-4">
-                <h2 className="text-2xl md:text-3xl w-full text-left">Hi,</h2>
-                <p className="text-2xl md:text-3xl font-semibold w-full text-left mt-4">#00x0de000000000</p>
-            </div>
-            <div className="flex flex-col items-center mb-4 mt-4 px-4">
-                <h3 className="text-lg md:text-xl w-full text-left pb-4">Select Your Interest</h3>
-                <div className="flex flex-col space-y-4 w-full max-w-lg max-h-64 md:max-h-80 overflow-y-auto items-center">
-                    {options.map(option => (
-                        <button
-                            key={option}
-                            onClick={() => toggleOption(option)}
-                            className={`p-4 rounded-lg h-14 md:h-16 text-lg md:text-xl w-full lg:w-8/12 ${selectedOptions.includes(option)
-                                ? 'bg-blue-500 text-white'
-                                : 'bg-white text-black'
-                                }`}
-                        >
-                            {option}
-                        </button>
-                    ))}
-                </div>
-            </div>
-        </div>
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const navigate = useNavigate();
+  const toggleOption = (option: string) => {
+    setSelectedOptions((prevState) =>
+      prevState.includes(option)
+        ? prevState.filter((item) => item !== option)
+        : [...prevState, option]
     );
+  };
+  const back = () => {
+    navigate("/screen3");
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen bg-[#E0E0E2]">
+      <div className="flex justify-center py-4">
+        <div className="bg-[#727774] rounded-full w-40 h-14 md:w-48 md:h-16 flex items-center justify-center p-4" onClick={back}>
+          <h1 className="text-xl md:text-2xl font-bold text-white">TagFi</h1>
+        </div>
+      </div>
+      <div className="grid grid-cols-2 w-full gap-4 px-4 py-2">
+        <div className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">      
+          <img src="/images/categories/cat.jpg" className="w-full h-[131px] rounded-lg"/>
+          <p className="text-white text-2xl flex justify-center items-center pt-2">Cat</p>
+        </div>
+        <div className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">      
+          <img src="/images/categories/dog.jpg" className="w-full h-[131px] rounded-lg"/>
+          <p className="text-white text-2xl flex justify-center items-center pt-2">Dog</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-2 w-full gap-4 px-4 py-2">
+        <div className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">      
+          <img src="/images/categories/horse.jpg" className="w-full h-[131px] rounded-lg"/>
+          <p className="text-white text-2xl flex justify-center items-center pt-2">Horse</p>
+        </div>
+        <div className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">      
+          <img src="/images/categories/bike.jpg" className="w-full h-[131px] rounded-lg"/>
+          <p className="text-white text-2xl flex justify-center items-center pt-2">Bike</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-2 w-full gap-4 px-4 py-2">
+        <div className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">      
+          <img src="/images/categories/apple.jpg" className="w-full h-[131px] rounded-lg"/>
+          <p className="text-white text-2xl flex justify-center items-center pt-2">Apple</p>
+        </div>
+        <div className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">      
+          <img src="/images/categories/banana.jpg" className="w-full h-[131px] rounded-lg"/>
+          <p className="text-white text-2xl flex justify-center items-center pt-2">Banana</p>
+        </div>
+      </div>
+      
+    </div>
+  );
 };
 
 export default InterestSelectionScreen;
