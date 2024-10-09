@@ -1,5 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import { Coinbase, Wallet } from "@coinbase/coinbase-sdk"; // Use CDP SDK
+
 
 const LoginScreen = () => {
     const navigate = useNavigate();
