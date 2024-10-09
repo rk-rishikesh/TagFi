@@ -28,7 +28,7 @@ const BalanceScreen = () => {
             <div className="w-full sm:w-3/4 md:w-2/3 lg:w-1/2 h-36 sm:h-40 bg-[#727774] rounded-xl relative">
                 <div className="absolute bottom-[-20px] left-1/2 transform -translate-x-1/2 bg-white rounded-full p-1">
                     <img
-                        src="/images/user-profile.png"
+                        src="/images/user-profile.jpg"
                         alt="User Profile"
                         className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-white"
                     />
