@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 const CameraScreen = () => {
@@ -110,9 +109,8 @@ const CameraScreen = () => {
             height={480}
           ></canvas>
           <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-full overflow-x-auto flex gap-2 justify-center">
-            <motion.div
+            <div
               className="flex p-4"
-              transition={{ type: "spring", stiffness: 300 }}
             >
               {filters.map((filter, index) => (
                 <div
@@ -129,7 +127,7 @@ const CameraScreen = () => {
                   />
                 </div>
               ))}
-            </motion.div>
+            </div>
           </div>
           <button
             onClick={handleCameraFlip}

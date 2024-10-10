@@ -1,7 +1,10 @@
+"use client";
 import React, { useState } from "react";
 import Header from "../components/Header";
-import { transferReward } from "../coinbase/TransferReward";
 import { useAccount } from "wagmi";
+import { useSendTransaction, useWaitForTransactionReceipt } from "wagmi";
+import { privateKeyToAccount } from "viem/accounts";
+import { parseEther } from "viem";
 
 const catData = [
   { img: "/images/cat1.jpg", question: "Is this a cat?" },
@@ -17,11 +20,30 @@ const CatConfirmationScreen = () => {
   const [popupTitle, setPopupTitle] = useState("");
 
   const account = useAccount();
+  const key = process.env.REACT_APP_PUBLIC_PRIVATE_KEY;
+
+  const sa = privateKeyToAccount(
+    key as `0x${string}`
+  );
+  console.log(sa);
+  const to = account.address;
+
+  const {
+    data: hash,
+    isPending,
+    isError,
+    sendTransaction,
+  } = useSendTransaction();
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
 
   const onTaskComplete = async () => {
-    if (account.address) {
-      await transferReward(account.address);
-    }
+    console.log(sa);
+    console.log(to);
+    sendTransaction({ account: sa, to, value: parseEther("0.01") });
+    console.log(hash);
   };
 
   const handleButtonClick = (title: string) => {
@@ -90,12 +112,32 @@ const CatConfirmationScreen = () => {
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 sm:w-2/3 md:w-1/3 text-center">
             <h3 className="text-lg font-semibold mb-4">{popupTitle}</h3>
-            <button
-              onClick={handleKeepTagging}
-              className="bg-gray-500 text-white px-4 py-2 rounded-full"
-            >
-              Keep tagging
-            </button>
+
+            {isConfirming && (
+              <div className="flex justify-center items-center">
+                <div
+                  className="loader border-t-2 rounded-full border-gray-500 bg-gray-300 animate-spin
+                              aspect-square w-8 flex justify-center items-center text-yellow-700"
+                ></div>
+              </div>
+            )}
+            {isConfirmed && (
+              <div className="flex gap-2 justify-center">
+                <a
+                  href={`https://calibration.filfox.info/en/message/${hash}`}
+                  target="_blank"
+                  className="bg-gray-500 text-white px-4 py-2 rounded-full"
+                >
+                  View Reward
+                </a>
+                <button
+                  onClick={handleKeepTagging}
+                  className="bg-gray-500 text-white px-4 py-2 rounded-full"
+                >
+                  Keep tagging
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

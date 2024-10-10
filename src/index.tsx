@@ -4,7 +4,27 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
-import WalletProviders from "./components/WalletProviders";
+import "@rainbow-me/rainbowkit/styles.css";
+import { OnchainKitProvider } from "@coinbase/onchainkit";
+// Wallet Integration Imports
+
+import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { State, WagmiProvider } from "wagmi";
+import { filecoinCalibration } from "wagmi/chains";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+//  Chain Configuration
+
+const projectId = `${process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID}`;
+
+const config = getDefaultConfig({
+  appName: "TagFi",
+  projectId: projectId,
+  chains: [filecoinCalibration],
+  ssr: true, // If your dApp uses server side rendering (SSR)
+});
+
+// Setup queryClient
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,9 +32,13 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <WalletProviders>
-      <App />
-    </WalletProviders>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider>
+          <App />
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   </React.StrictMode>
 );
 
