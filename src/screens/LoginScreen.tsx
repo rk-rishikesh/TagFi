@@ -1,10 +1,19 @@
 "use client";
 import { useNavigate } from "react-router-dom";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { usePrivy } from "@privy-io/react-auth";
 
 const LoginScreen = () => {
   const navigate = useNavigate();
-  const { openConnectModal } = useConnectModal();
+  // Privy hooks
+  const {
+    ready,
+    authenticated,
+    login
+  } = usePrivy();
+
+  if (!ready) {
+    return null;
+  }
 
   return (
     <div className="flex flex-col items-center justify-between h-screen py-8 bg-[#E0E0E2] px-4 sm:px-8">
@@ -17,7 +26,7 @@ const LoginScreen = () => {
         </div>
       </div>
       <div className="flex items-center justify-center mb-8 sm:mb-12">
-        {openConnectModal ? (
+        {/* {openConnectModal ? (
           <button
             className="px-4 py-2 bg-white text-black rounded w-full max-w-xs sm:w-48 sm:py-3 font-semibold text-lg sm:text-xl"
             onClick={openConnectModal}
@@ -33,6 +42,31 @@ const LoginScreen = () => {
           >
             Launch
           </button>
+        )} */}
+
+        {ready && !authenticated && (
+          <>
+            <div className="flex items-center gap-4">
+              <button
+                className="px-4 py-2 bg-white text-black rounded w-full max-w-xs sm:w-48 sm:py-3 font-semibold text-lg sm:text-xl"
+                onClick={login}
+                type="button"
+              >
+                Login
+              </button>
+            </div>
+          </>
+        )}
+        {ready && authenticated && (
+          <>
+            <button
+              className="px-4 py-2 bg-white text-black rounded w-full max-w-xs sm:w-48 sm:py-3 font-semibold text-lg sm:text-xl"
+              onClick={() => navigate("/screen3")}
+              type="button"
+            >
+              Launch
+            </button>
+          </>
         )}
       </div>
     </div>

@@ -4,24 +4,44 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
-import "@rainbow-me/rainbowkit/styles.css";
-import { OnchainKitProvider } from "@coinbase/onchainkit";
-// Wallet Integration Imports
 
-import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { State, WagmiProvider } from "wagmi";
-import { filecoinCalibration } from "wagmi/chains";
+// Wallet Integration Imports
+import { http } from 'viem';
+import { WagmiProvider, createConfig } from '@privy-io/wagmi';
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { PrivyProvider } from '@privy-io/react-auth';
+import { baseSepolia } from 'viem/chains';
+import type { PrivyClientConfig } from '@privy-io/react-auth';
+
+
 //  Chain Configuration
 
-const projectId = `${process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID}`;
 
-const config = getDefaultConfig({
-  appName: "TagFi",
-  projectId: projectId,
-  chains: [filecoinCalibration],
-  ssr: true, // If your dApp uses server side rendering (SSR)
+export const wagmiConfig = createConfig({
+  chains: [baseSepolia],
+  transports: {
+    [baseSepolia.id]: http(),
+  },
 });
+
+const privyConfig: PrivyClientConfig = {
+  appearance: {
+    walletList: ['coinbase_wallet'], 
+  },
+  externalWallets: { 
+    coinbaseWallet: { 
+      // Valid connection options include 'eoaOnly' (default), 'smartWalletOnly', or 'all'
+      connectionOptions: 'smartWalletOnly', 
+    }, 
+  }, 
+  embeddedWallets: {
+    createOnLogin: 'users-without-wallets',
+    requireUserPasswordOnCreate: true,
+    noPromptOnSignature: false,
+  },
+  defaultChain: baseSepolia,
+  loginMethods: ['wallet', 'email', 'sms'],
+};
 
 // Setup queryClient
 const queryClient = new QueryClient();
@@ -32,13 +52,20 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <WagmiProvider config={config}>
+    <PrivyProvider
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      appId={process.env.REACT_APP_PRIVY_APP_ID as string}
+      config={privyConfig}
+    >
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
+        <WagmiProvider config={wagmiConfig}>
+
           <App />
-        </RainbowKitProvider>
+
+        </WagmiProvider>
       </QueryClientProvider>
-    </WagmiProvider>
+    </PrivyProvider>
   </React.StrictMode>
 );
 

@@ -5,6 +5,8 @@ import { useAccount } from "wagmi";
 import { useSendTransaction, useWaitForTransactionReceipt } from "wagmi";
 import { privateKeyToAccount } from "viem/accounts";
 import { parseEther } from "viem";
+import type { SendTransactionVariables } from 'wagmi/query';
+import type { Config } from 'wagmi';
 
 const catData = [
   { img: "/images/cat1.jpg", question: "Is this a cat?" },
@@ -21,19 +23,20 @@ const CatConfirmationScreen = () => {
 
   const account = useAccount();
   const key = process.env.REACT_APP_PUBLIC_PRIVATE_KEY;
-
+  console.log(key)
   const sa = privateKeyToAccount(
     key as `0x${string}`
   );
-  console.log(sa);
+  console.log("sa : ", sa);
   const to = account.address;
-
+  console.log("ta : ", to);
   const {
     data: hash,
     isPending,
     isError,
     sendTransaction,
   } = useSendTransaction();
+
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({
       hash,
@@ -42,8 +45,17 @@ const CatConfirmationScreen = () => {
   const onTaskComplete = async () => {
     console.log(sa);
     console.log(to);
-    sendTransaction({ account: sa, to, value: parseEther("0.01") });
+    const transactionRequest: SendTransactionVariables<Config, number> = {
+      account: sa,
+      to: to,
+      value: parseEther('0.00001'),
+      type: 'eip1559',
+    };
+    sendTransaction(transactionRequest)
     console.log(hash);
+    if (isError) {
+      console.log(hash)
+    }
   };
 
   const handleButtonClick = (title: string) => {
@@ -106,7 +118,7 @@ const CatConfirmationScreen = () => {
         </div>
       </div>
       <div className="flex-shrink-0">
-        <Header onOptionChange={() => {}} />
+        <Header onOptionChange={() => { }} />
       </div>
       {isPopupVisible && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-50">
@@ -124,7 +136,7 @@ const CatConfirmationScreen = () => {
             {isConfirmed && (
               <div className="flex gap-2 justify-center">
                 <a
-                  href={`https://calibration.filfox.info/en/message/${hash}`}
+                  href={`https://sepolia.basescan.org/tx/${hash}`}
                   target="_blank"
                   className="bg-gray-500 text-white px-4 py-2 rounded-full"
                 >
