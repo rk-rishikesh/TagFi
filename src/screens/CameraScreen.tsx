@@ -171,7 +171,7 @@ const CameraScreen = () => {
               className="w-full object-cover rounded-lg"
             />
             <h2 className="flex items-center justify-center text-xl text-gray-800 font-semibold">
-              Picture published successfully!
+              Your data is securedly stored on Filecoin
             </h2>
 
             <button

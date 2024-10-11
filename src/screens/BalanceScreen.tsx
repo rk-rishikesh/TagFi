@@ -15,6 +15,8 @@ const BalanceScreen = () => {
     const { data: addressData, isError, isLoading } = useBalance({ address });
 
     const [isCopied, setIsCopied] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
+
     const textToCopy = address;
     const displayText = `${textToCopy?.slice(0, 6)}...${textToCopy?.slice(-6)}`;
     const postImages = [
@@ -36,10 +38,18 @@ const BalanceScreen = () => {
         }
     };
 
+    const closePopup = () => {
+        setShowPopup(false);
+    };
+
+    const openPopup = () => {
+        setShowPopup(true);
+    };
+
     if (!ready) {
         return null;
-      }
-      
+    }
+
     return (
         <div className="flex flex-col min-h-screen bg-[#E0E0E2]">
             <div className="flex-grow overflow-y-auto p-2">
@@ -65,6 +75,7 @@ const BalanceScreen = () => {
                                 onClick={handleCopy}
                             />
                             {isCopied && <span className="text-sm text-green-500">Copied!</span>}
+                            <img onClick={openPopup} className="w-8 h-8" src="/images/verified.png" />
                         </div>
                         <div className='w-full flex gap-8 mt-4'>
                             <div className='w-full flex flex-col p-4 justify-center items-center bg-gray-300 rounded-lg'>
@@ -103,9 +114,29 @@ const BalanceScreen = () => {
                             </button>
                         </div>
                     </div>}
+                {showPopup && (
+                    <div className="fixed inset-0 flex items-center justify-center bg-white p-2">
+                        <div className="flex flex-col items-center justify-centerp-6 rounded-lg transform scale-100 transition-transform duration-300 hover:scale-105">
+                            <img
+                                src="/images/message.png"
+                                alt="Captured"
+                                className="w-full object-cover rounded-lg"
+                            />
+                    
 
+                            <button
+                                onClick={closePopup}
+                                className="mt-4 px-6 py-2 bg-gray-500 text-white text-sm font-medium rounded-md shadow hover:shadow-lg transition-all duration-300"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+
+                )}
 
             </div>
+
             <div className="sticky bottom-0 w-full">
                 <Header onOptionChange={() => { }} />
             </div>

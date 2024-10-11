@@ -23,13 +23,10 @@ const CatConfirmationScreen = () => {
 
   const account = useAccount();
   const key = process.env.REACT_APP_PUBLIC_PRIVATE_KEY;
-  console.log(key)
   const sa = privateKeyToAccount(
     key as `0x${string}`
   );
-  console.log("sa : ", sa);
   const to = account.address;
-  console.log("ta : ", to);
   const {
     data: hash,
     isPending,
@@ -43,24 +40,23 @@ const CatConfirmationScreen = () => {
     });
 
   const onTaskComplete = async () => {
-    console.log(sa);
-    console.log(to);
-    const transactionRequest: SendTransactionVariables<Config, number> = {
-      account: sa,
-      to: to,
-      value: parseEther('0.00001'),
-      type: 'eip1559',
-    };
-    sendTransaction(transactionRequest)
-    console.log(hash);
-    if (isError) {
-      console.log(hash)
+    if (currentIndex == 2) {
+      setIsPopupVisible(true);
+      const transactionRequest: SendTransactionVariables<Config, number> = {
+        account: sa,
+        to: to,
+        value: parseEther('0.00001'),
+        type: 'eip1559',
+      };
+      sendTransaction(transactionRequest)
+      console.log(hash);
+    } else {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % catData.length);
     }
   };
 
   const handleButtonClick = (title: string) => {
     setPopupTitle(title);
-    setIsPopupVisible(true);
     onTaskComplete();
   };
 
@@ -97,7 +93,7 @@ const CatConfirmationScreen = () => {
             <button
               onClick={() =>
                 handleButtonClick(
-                  "Awesome, you completed 25 Tags today, reward on the way!"
+                  "Awesome, you completed 3 Tags today, reward on the way! Verify yourself to earn 2x"
                 )
               }
               className="bg-red-500 text-white px-4 py-2 rounded-full text-sm sm:text-base"
@@ -107,7 +103,7 @@ const CatConfirmationScreen = () => {
             <button
               onClick={() =>
                 handleButtonClick(
-                  "Awesome, you completed 25 Tags today, reward on the way!"
+                  "Awesome, you completed 3 Tags today, reward on the way! Verify yourself to earn 2x"
                 )
               }
               className="bg-green-500 text-white px-4 py-2 rounded-full text-sm sm:text-base"

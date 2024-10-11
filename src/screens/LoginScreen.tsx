@@ -21,8 +21,8 @@ const LoginScreen = () => {
         <h1 className="text-xl font-bold text-white sm:text-2xl">TagFi</h1>
       </div>
       <div className="flex flex-col items-center mt-8 sm:mt-12">
-        <div className="bg-gray-300 rounded-md w-56 h-32 flex items-center justify-center sm:w-64 sm:h-40">
-          <h2 className="text-lg font-bold sm:text-xl">Tag and Earn</h2>
+        <div className="w-56 h-56 flex items-center justify-center">
+          <img src="/images/logo.png" />
         </div>
       </div>
       <div className="flex items-center justify-center mb-8 sm:mb-12">
