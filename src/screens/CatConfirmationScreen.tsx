@@ -93,7 +93,7 @@ const CatConfirmationScreen = () => {
             <button
               onClick={() =>
                 handleButtonClick(
-                  "Awesome, you completed 3 Tags today, reward on the way! Verify yourself to earn 2x"
+                  "Awesome, you completed 3 Tags today, reward on the way!"
                 )
               }
               className="bg-red-500 text-white px-4 py-2 rounded-full text-sm sm:text-base"
@@ -103,7 +103,7 @@ const CatConfirmationScreen = () => {
             <button
               onClick={() =>
                 handleButtonClick(
-                  "Awesome, you completed 3 Tags today, reward on the way! Verify yourself to earn 2x"
+                  "Awesome, you completed 3 Tags today, reward on the way!"
                 )
               }
               className="bg-green-500 text-white px-4 py-2 rounded-full text-sm sm:text-base"
