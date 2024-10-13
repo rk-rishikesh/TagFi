@@ -1,12 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
-import { useAccount } from "wagmi";
 import { useSendTransaction, useWaitForTransactionReceipt } from "wagmi";
 import { privateKeyToAccount } from "viem/accounts";
 import { parseEther } from "viem";
 import type { SendTransactionVariables } from 'wagmi/query';
 import type { Config } from 'wagmi';
+import { useAccount, useBalance } from "wagmi";
+import { usePrivy } from "@privy-io/react-auth";
 
 const fruitData = [
   { img: "/images/fruits/fruit1.jpeg", question: "Rate the Banana" },
@@ -28,7 +29,11 @@ const FruitConfirmationScreen = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [popupTitle, setPopupTitle] = useState("");
-
+  const { address, isConnected } = useAccount();
+  const { data: addressData, isLoading } = useBalance({ address });
+  const [bal, setBal] = useState(0);
+  const { ready, authenticated, login, logout } = usePrivy();
+  
   const account = useAccount();
   const key = process.env.REACT_APP_PUBLIC_PRIVATE_KEY;
   const sa = privateKeyToAccount(
@@ -78,6 +83,13 @@ const FruitConfirmationScreen = () => {
     handleClosePopup();
   };
 
+  useEffect(() => {
+    if (addressData) {
+      setBal(Number(addressData?.formatted) * 2500)
+    }
+  });
+
+
   return (
     <div className="flex flex-col justify-between min-h-screen bg-[#E0E0E2]">
       <div
@@ -85,13 +97,16 @@ const FruitConfirmationScreen = () => {
         className="bg-cover bg-center bg-no-repeat flex flex-col rounded-3xl flex-grow mx-4 my-5 sm:mx-8 sm:my-6"
         style={{ backgroundImage: `url(${fruitData[currentIndex].img})` }}
       >
-        {/* <div className="flex justify-start p-5">
-          <img
+        {ready && authenticated && (
+          <div className="flex justify-start p-5">
+            {/* <img
             src={userData[currentIndex].img}
             alt="User Profile"
             className="w-12 h-12 rounded-full sm:w-20 sm:h-20"
-          />
-        </div> */}
+          /> */}
+            <span className='bg-gray-300 rounded-full text-gray-800 text-2xl p-3 px-4'><b> 💰 $ {bal.toString().slice(0, 4)}</b></span>
+
+          </div>)}
         <div className="flex flex-col items-center flex-grow p-4 sm:p-5 ">
           <div className="relative w-full flex-grow flex items-center justify-center"></div>
 
