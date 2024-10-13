@@ -16,6 +16,14 @@ const catData = [
   { img: "/images/cat5.jpg", question: "Is this a cat?" },
 ];
 
+const userData = [
+  { img: "/images/users/user1.png" },
+  { img: "/images/users/user2.png" },
+  { img: "/images/users/user3.png" },
+  { img: "/images/users/user4.png" },
+  { img: "/images/users/user5.png" },
+];
+
 const CatConfirmationScreen = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -77,13 +85,13 @@ const CatConfirmationScreen = () => {
         className="bg-cover bg-center bg-no-repeat flex flex-col rounded-3xl flex-grow mx-4 my-5 sm:mx-8 sm:my-6"
         style={{ backgroundImage: `url(${catData[currentIndex].img})` }}
       >
-        <div className="flex justify-start p-5">
+        {/* <div className="flex justify-start p-5">
           <img
-            src="/images/user-profile.jpg"
+            src={userData[currentIndex].img}
             alt="User Profile"
             className="w-12 h-12 rounded-full sm:w-20 sm:h-20"
           />
-        </div>
+        </div> */}
         <div className="flex flex-col items-center flex-grow p-4 sm:p-5">
           <div className="relative w-full flex-grow flex items-center justify-center"></div>
           <span className="text-lg mt-4 bg-white p-3 rounded-md shadow-[10px_10px_#727774] sm:text-xl">

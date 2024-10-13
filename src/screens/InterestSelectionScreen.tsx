@@ -17,6 +17,10 @@ const InterestSelectionScreen = () => {
     navigate("/screen3");
   };
 
+  const banana = () => {
+    navigate("/screen7");
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-[#E0E0E2]">
       <div className="flex justify-center py-4">
@@ -29,29 +33,29 @@ const InterestSelectionScreen = () => {
           <img src="/images/categories/cat.jpg" className="w-full h-[131px] rounded-lg" />
           <p className="text-white text-2xl flex justify-center items-center pt-2">Cat</p>
         </div>
-        <div className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">
-          <img src="/images/categories/dog.jpg" className="w-full h-[131px] rounded-lg" />
-          <p className="text-white text-2xl flex justify-center items-center pt-2">Dog</p>
-        </div>
-      </div>
-      <div className="grid grid-cols-2 w-full gap-4 px-4 py-2">
-        <div className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">
-          <img src="/images/categories/horse.jpg" className="w-full h-[131px] rounded-lg" />
-          <p className="text-white text-2xl flex justify-center items-center pt-2">Horse</p>
-        </div>
-        <div className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">
-          <img src="/images/categories/bike.jpg" className="w-full h-[131px] rounded-lg" />
-          <p className="text-white text-2xl flex justify-center items-center pt-2">Bike</p>
-        </div>
-      </div>
-      <div className="grid grid-cols-2 w-full gap-4 px-4 py-2">
-        <div className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">
-          <img src="/images/categories/apple.jpg" className="w-full h-[131px] rounded-lg" />
-          <p className="text-white text-2xl flex justify-center items-center pt-2">Apple</p>
-        </div>
-        <div className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">
+        <div onClick={banana} className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">
           <img src="/images/categories/banana.jpg" className="w-full h-[131px] rounded-lg" />
           <p className="text-white text-2xl flex justify-center items-center pt-2">Banana</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-2 w-full gap-4 px-4 py-2">
+        <div className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">
+          <img src="/images/categories/comingSoon.jpg" className="w-full h-[131px] rounded-lg" />
+          {/* <p className="text-white text-2xl flex justify-center items-center pt-2">Coming Soon</p> */}
+        </div>
+        <div className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">
+          <img src="/images/categories/comingSoon.jpg" className="w-full h-[131px] rounded-lg" />
+          {/* <p className="text-white text-2xl flex justify-center items-center pt-2">Coming Soon</p> */}
+        </div>
+      </div>
+      <div className="grid grid-cols-2 w-full gap-4 px-4 py-2">
+        <div className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">
+          <img src="/images/categories/comingSoon.jpg" className="w-full h-[131px] rounded-lg" />
+          {/* <p className="text-white text-2xl flex justify-center items-center pt-2">Coming Soon</p> */}
+        </div>
+        <div className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">
+          <img src="/images/categories/comingSoon.jpg" className="w-full h-[131px] rounded-lg" />
+          {/* <p className="text-white text-2xl flex justify-center items-center pt-2">Coming Soon</p> */}
         </div>
       </div>
 

@@ -55,7 +55,9 @@ const Header: React.FC<HeaderProps> = ({ onOptionChange }) => {
             alt="User Profile"
             className="w-10 h-10 rounded-full"
           />
+          
         </div>
+        <img src="/images/verified.png" alt="" className="w-6 h-6 -ml-16" /> 
       </div>
     </div>
   );
