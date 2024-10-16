@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { useSendTransaction, useWaitForTransactionReceipt } from "wagmi";
 import { privateKeyToAccount } from "viem/accounts";
@@ -8,52 +8,161 @@ import type { SendTransactionVariables } from 'wagmi/query';
 import type { Config } from 'wagmi';
 import { useAccount, useBalance } from "wagmi";
 import { usePrivy } from "@privy-io/react-auth";
+import { RootState } from "../store/store";
+import { CategoryState } from "../store/stringSlice";
+import { useSelector } from 'react-redux';
 
-const fruitData = [
-  { img: "/images/fruits/fruit1.jpeg", question: "Rate the Banana" },
-  { img: "/images/fruits/fruit2.jpeg", question: "Rate the Banana" },
-  { img: "/images/fruits/fruit3.jpeg", question: "Rate the Banana" },
-  { img: "/images/fruits/fruit4.jpeg", question: "Rate the Banana" },
-  { img: "/images/fruits/fruit5.jpeg", question: "Rate the Banana" },
+
+const bananaData = [
+  {
+    img: "/images/fruits/fruit1.jpeg",
+    question: "Rate the Banana",
+    properties: ["Raw", "Ripe", "Overripe", "Rotten"]
+  },
+  {
+    img: "/images/fruits/fruit2.jpeg",
+    question: "Rate the Banana",
+    properties: ["Raw", "Ripe", "Overripe", "Rotten"]
+  },
+  {
+    img: "/images/fruits/fruit3.jpeg",
+    question: "Rate the Banana",
+    properties: ["Raw", "Ripe", "Overripe", "Rotten"]
+  },
+  {
+    img: "/images/fruits/fruit4.jpeg",
+    question: "Rate the Banana",
+    properties: ["Raw", "Ripe", "Overripe", "Rotten"]
+  },
+  {
+    img: "/images/fruits/fruit5.jpeg",
+    question: "Rate the Banana",
+    properties: ["Raw", "Ripe", "Overripe", "Rotten"]
+  }
 ];
 
-const userData = [
-  { img: "/images/users/user1.png" },
-  { img: "/images/users/user2.png" },
-  { img: "/images/users/user3.png" },
-  { img: "/images/users/user4.png" },
-  { img: "/images/users/user5.png" },
+const automobileData = [
+  {
+    img: "/images/automobile/bike1.jpg",
+    question: "Rate the Automobile",
+    properties: ["Bike", "Car", "Truck", "Auto"]
+  },
+  {
+    img: "/images/automobile/bike2.jpg",
+    question: "Rate the Automobile",
+    properties: ["Bike", "Car", "Truck", "Auto"]
+  },
+  {
+    img: "/images/automobile/bike3.jpg",
+    question: "Rate the Automobile",
+    properties: ["Bike", "Car", "Truck", "Auto"]
+  },
+  {
+    img: "/images/automobile/bike4.jpg",
+    question: "Rate the Automobile",
+    properties: ["Bike", "Car", "Truck", "Auto"]
+  },
 ];
+
+const plantData = [
+  {
+    img: "/images/plant/plant1.jpg",
+    question: "Rate the Plant",
+    properties: ["Herbs", "Shrubs", "Trees", "Climbers"]
+  },
+  {
+    img: "/images/plant/plant2.jpg",
+    question: "Rate the Plant",
+    properties: ["Herbs", "Shrubs", "Trees", "Climbers"]
+  },
+  {
+    img: "/images/plant/plant3.jpg",
+    question: "Rate the Plant",
+    properties: ["Herbs", "Shrubs", "Trees", "Climbers"]
+  },
+  {
+    img: "/images/plant/plant4.jpg",
+    question: "Rate the Plant",
+    properties: ["Herbs", "Shrubs", "Trees", "Climbers"]
+  }
+];
+
+const rashData = [
+  {
+    img: "/images/rash.jpg",
+    question: "Rate the Rash",
+    properties: ["Rash", "Rash", "Rash", "Rash"]
+  },
+  {
+    img: "/images/rash.jpg",
+    question: "Rate the Rash",
+    properties: ["Rash", "Rash", "Rash", "Rash"]
+  },
+];
+
+const garbageData = [
+  {
+    img: "/images/waste/waste1.png",
+    question: "Rate the Garbage",
+    properties: ["Organic", "Paper", "Plastic", "Glass"]
+  },
+  {
+    img: "/images/waste/waste2.png",
+    question: "Rate the Garbage",
+    properties: ["Organic", "Paper", "Plastic", "Glass"]
+  },
+  {
+    img: "/images/waste/waste3.png",
+    question: "Rate the Garbage",
+    properties: ["Organic", "Paper", "Plastic", "Glass"]
+  },
+  {
+    img: "/images/waste/waste4.png",
+    question: "Rate the Garbage",
+    properties: ["Organic", "Paper", "Plastic", "Glass"]
+  }
+];
+
 
 const FruitConfirmationScreen = () => {
+  const category = useSelector((state: RootState) => state.category.category) as CategoryState;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [popupTitle, setPopupTitle] = useState("");
-  const { address, isConnected } = useAccount();
-  const { data: addressData, isLoading } = useBalance({ address });
+  const { address } = useAccount();
+  const { data: addressData } = useBalance({ address });
   const [bal, setBal] = useState(0);
-  const { ready, authenticated, login, logout } = usePrivy();
-  
+  const { ready, authenticated } = usePrivy();
+
   const account = useAccount();
   const key = process.env.REACT_APP_PUBLIC_PRIVATE_KEY;
-  const sa = privateKeyToAccount(
-    key as `0x${string}`
-  );
+  const sa = privateKeyToAccount(key as `0x${string}`);
   const to = account.address;
-  const {
-    data: hash,
-    isPending,
-    isError,
-    sendTransaction,
-  } = useSendTransaction();
+  const { data: hash, sendTransaction } = useSendTransaction();
 
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
-    useWaitForTransactionReceipt({
-      hash,
-    });
+    useWaitForTransactionReceipt({ hash });
+  const getCategoryData = () => {
+    switch (category) {
+      case 'banana':
+        return bananaData;
+      case 'plant':
+        return plantData;
+      case 'garbage':
+        return garbageData;
+      case 'automobile':
+        return automobileData;
+      case 'skin':
+        return rashData;
+      default:
+        return bananaData;
+    }
+  };
+
+  const fruitData = getCategoryData();
 
   const onTaskComplete = async () => {
-    if (currentIndex == 2) {
+    if (currentIndex === 2) {
       setIsPopupVisible(true);
       const transactionRequest: SendTransactionVariables<Config, number> = {
         account: sa,
@@ -61,8 +170,7 @@ const FruitConfirmationScreen = () => {
         value: parseEther('0.00001'),
         type: 'eip1559',
       };
-      sendTransaction(transactionRequest)
-      console.log(hash);
+      sendTransaction(transactionRequest);
     } else {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % fruitData.length);
     }
@@ -85,10 +193,9 @@ const FruitConfirmationScreen = () => {
 
   useEffect(() => {
     if (addressData) {
-      setBal(Number(addressData?.formatted) * 2500)
+      setBal(Number(addressData?.formatted) * 2500);
     }
-  });
-
+  }, [addressData]);
 
   return (
     <div className="flex flex-col justify-between min-h-screen bg-[#E0E0E2]">
@@ -99,136 +206,46 @@ const FruitConfirmationScreen = () => {
       >
         {ready && authenticated && (
           <div className="flex justify-start p-5">
-            {/* <img
-            src={userData[currentIndex].img}
-            alt="User Profile"
-            className="w-12 h-12 rounded-full sm:w-20 sm:h-20"
-          /> */}
-            <span className='bg-gray-300 rounded-full text-gray-800 text-2xl p-3 px-4'><b> 💰 $ {bal.toString().slice(0, 4)}</b></span>
-
-          </div>)}
-        <div className="flex flex-col items-center flex-grow p-4 sm:p-5 ">
+            <span className="bg-gray-300 rounded-full text-gray-800 text-2xl p-3 px-4">
+              <b> 💰 $ {bal.toString().slice(0, 4)}</b>
+            </span>
+          </div>
+        )}
+        <div className="flex flex-col items-center flex-grow p-4 sm:p-5">
           <div className="relative w-full flex-grow flex items-center justify-center"></div>
 
           <div className="flex space-x-4 mt-4 w-10/12 justify-center">
-            {/* <button
-              onClick={() =>
-                handleButtonClick(
-                  "Awesome, you completed 3 Tags today, reward on the way!"
-                )
-              }
-              className="bg-red-500 text-white px-4 py-2 rounded-full text-sm sm:text-base"
-            >
-              ✖
-            </button>
-            <button
-              onClick={() =>
-                handleButtonClick(
-                  "Awesome, you completed 3 Tags today, reward on the way!"
-                )
-              }
-              className="bg-green-500 text-white px-4 py-2 rounded-full text-sm sm:text-base"
-            >
-              ✔
-            </button> */}
             <div className="bg-[#E0E0E2] bg-opacity-80 rounded-md w-[100%] flex flex-col justify-center px-4">
               <div className="flex justify-center p-2">
                 {fruitData[currentIndex].question}
               </div>
 
-              <div className="gap-2 gap-x-12  py-2 grid grid-cols-2">
-                <div onClick={() =>
-                  handleButtonClick(
-                    "Awesome, you completed 3 Tags today, reward on the way!"
-                  )
-                }>
-                  <input
-                    className="peer sr-only"
-                    value="male"
-                    name="gender"
-                    id="male"
-                    type="radio"
-                  />
-                  <div
-                    className="flex h-8 w-24 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-gray-300 bg-gray-50 p-1 transition-transform duration-150 hover:border-blue-400 active:scale-95 peer-checked:border-blue-500 peer-checked:shadow-md peer-checked:shadow-blue-400"
+              <div className="gap-2  py-2 grid grid-cols-2">
+                {fruitData[currentIndex].properties.map((property, index) => (
+                  <div className="flex justify-center"
+                    key={index}
+                    onClick={() =>
+                      handleButtonClick(
+                        "Awesome, you completed 3 Tags today, reward on the way!"
+                      )
+                    }
                   >
-                    <label
-                      className="flex cursor-pointer items-center justify-center text-sm uppercase text-gray-500 peer-checked:text-blue-500"
-                    >
-                      Raw
-                    </label>
+                    <input
+                      className="peer sr-only"
+                      value={property.toLowerCase()}
+                      name="ripeness"
+                      id={property.toLowerCase()}
+                      type="radio"
+                    />
+                    <div className="flex h-8 w-24 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-gray-300 bg-gray-50 p-1 transition-transform duration-150 hover:border-blue-400 active:scale-95 peer-checked:border-blue-500 peer-checked:shadow-md peer-checked:shadow-blue-400">
+                      <label
+                        className="flex cursor-pointer items-center justify-center text-sm uppercase text-gray-500 peer-checked:text-blue-500"
+                      >
+                        {property}
+                      </label>
+                    </div>
                   </div>
-                </div>
-                <div onClick={() =>
-                  handleButtonClick(
-                    "Awesome, you completed 3 Tags today, reward on the way!"
-                  )
-                }>
-                  <input
-                    className="peer sr-only"
-                    value="female"
-                    name="gender"
-                    id="female"
-                    type="radio"
-                  />
-                  <div
-                    className="flex h-8 w-24 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-gray-300 bg-gray-50 p-1 transition-transform duration-150 hover:border-blue-400 active:scale-95 peer-checked:border-blue-500 peer-checked:shadow-md peer-checked:shadow-blue-400"
-                  >
-                    <label
-                      className="flex cursor-pointer items-center justify-center text-sm uppercase text-gray-500 peer-checked:text-blue-500"
-
-                    >
-                      Ripe
-                    </label>
-                  </div>
-                </div>
-
-                <div onClick={() =>
-                  handleButtonClick(
-                    "Awesome, you completed 3 Tags today, reward on the way!"
-                  )
-                }>
-                  <input
-                    className="peer sr-only"
-                    value="other"
-                    name="gender"
-                    id="other"
-                    type="radio"
-                  />
-                  <div
-                    className="flex h-8 w-24 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-gray-300 bg-gray-50 p-1 transition-transform duration-150 hover:border-blue-400 active:scale-95 peer-checked:border-blue-500 peer-checked:shadow-md peer-checked:shadow-blue-400"
-                  >
-                    <label
-                      className="flex cursor-pointer items-center justify-center text-sm uppercase text-gray-500 peer-checked:text-blue-500"
-
-                    >
-                      Overripe
-                    </label>
-                  </div>
-                </div>
-                <div onClick={() =>
-                  handleButtonClick(
-                    "Awesome, you completed 3 Tags today, reward on the way!"
-                  )
-                }>
-                  <input
-                    className="peer sr-only"
-                    value="other"
-                    name="gender"
-                    id="other"
-                    type="radio"
-                  />
-                  <div
-                    className="flex h-8 w-24 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-gray-300 bg-gray-50 p-1 transition-transform duration-150 hover:border-blue-400 active:scale-95 peer-checked:border-blue-500 peer-checked:shadow-md peer-checked:shadow-blue-400"
-                  >
-                    <label
-                      className="flex cursor-pointer items-center justify-center text-sm uppercase text-gray-500 peer-checked:text-blue-500"
-
-                    >
-                      Rotten
-                    </label>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -244,10 +261,7 @@ const FruitConfirmationScreen = () => {
 
             {isConfirming && (
               <div className="flex justify-center items-center">
-                <div
-                  className="loader border-t-2 rounded-full border-gray-500 bg-gray-300 animate-spin
-                              aspect-square w-8 flex justify-center items-center text-yellow-700"
-                ></div>
+                <div className="loader border-t-2 rounded-full border-gray-500 bg-gray-300 animate-spin aspect-square w-8 flex justify-center items-center text-yellow-700"></div>
               </div>
             )}
             {isConfirmed && (

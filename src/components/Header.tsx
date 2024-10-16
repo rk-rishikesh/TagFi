@@ -47,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({ onOptionChange }) => {
           />
         </div>
         <div
-          className="bg-white rounded-full w-14 h-14 cursor-pointer flex justify-center items-center"
+          className="bg-white rounded-full w-14 h-14 cursor-pointer flex justify-center items-center relative"
           onClick={handleUserProfileClick}
         >
           <img
@@ -55,9 +55,12 @@ const Header: React.FC<HeaderProps> = ({ onOptionChange }) => {
             alt="User Profile"
             className="w-10 h-10 rounded-full"
           />
-          
+          <img
+            src="/images/verified.png"
+            alt="Verified"
+            className="w-6 h-6 absolute top-0 right-0 transform translate-x-2 -translate-y-1"
+          />
         </div>
-        <img src="/images/verified.png" alt="" className="w-6 h-6 -ml-16" /> 
       </div>
     </div>
   );
