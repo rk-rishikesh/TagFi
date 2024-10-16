@@ -19,13 +19,13 @@ const BalanceScreen = () => {
 
     const textToCopy = address;
     const displayText = `${textToCopy?.slice(0, 6)}...${textToCopy?.slice(-6)}`;
-    const postImages = [
-        "/images/user-posts/cat1.jpg",
-        "/images/user-posts/cat2.jpg",
-        "/images/user-posts/cat3.jpg",
-        "/images/user-posts/cat4.jpg",
-        "/images/user-posts/cat5.jpg",
-    ];
+    // const postImages = [
+    //     "/images/user-posts/cat1.jpg",
+    //     "/images/user-posts/cat2.jpg",
+    //     "/images/user-posts/cat3.jpg",
+    //     "/images/user-posts/cat4.jpg",
+    //     "/images/user-posts/cat5.jpg",
+    // ];
 
     const handleCopy = () => {
         if (textToCopy) {
@@ -91,14 +91,14 @@ const BalanceScreen = () => {
                             />
                             <hr className="w-1/3 h-px my-4 bg-gray-500 border-0" />
                             <div className="grid grid-cols-2 gap-4 w-full p-4">
-                                {postImages.map((src, index) => (
+                                {/* {postImages.map((src, index) => (
                                     <img
                                         key={index}
                                         src={src}
                                         alt={`post-${index}`}
                                         className="w-full h-44 rounded-lg"
                                     />
-                                ))}
+                                ))} */}
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@ const BalanceScreen = () => {
                                 alt="Captured"
                                 className="w-full object-cover rounded-lg"
                             />
-                    
+
 
                             <button
                                 onClick={closePopup}
