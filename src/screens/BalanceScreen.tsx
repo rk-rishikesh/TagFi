@@ -74,6 +74,7 @@ const BalanceScreen = () => {
                                 className="cursor-pointer text-gray-500 hover:text-gray-700"
                                 onClick={handleCopy}
                             />
+                            
                             {isCopied && <span className="text-sm text-green-500">Copied!</span>}
                             <img onClick={openPopup} className="w-8 h-8" src="/images/verified.png" />
                         </div>
