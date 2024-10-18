@@ -1,5 +1,9 @@
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { CategoryState } from "../store/stringSlice";
+
 
 const CameraScreen = () => {
   const navigate = useNavigate();
@@ -11,13 +15,26 @@ const CameraScreen = () => {
   const [activeFilterIndex, setActiveFilterIndex] = useState(2);
   const [showPhoto, setShowPhoto] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const category = useSelector((state: RootState) => state.category.category) as CategoryState;
 
-  const filters = [
-    "/images/fur1.jpg",
-    "/images/fur2.jpg",
-    "/images/fur3.jpg",
-    "/images/fur4.jpg",
-  ];
+  const filters = (() => {
+    switch (category) {
+      case "cat":
+        return ["/images/fur1.jpg", "/images/fur2.jpg", "/images/fur3.jpg", "/images/fur4.jpg"];
+      case "banana":
+        return ["/images/fruits/fruit1.jpeg", "/images/fruits/fruit2.jpeg", "/images/fruits/fruit3.jpeg", "/images/fruits/fruit4.jpeg"];
+      case "plant":
+        return ["/images/plant/plant1.jpg", "/images/plant/plant2.jpg", "/images/plant/plant3.jpg", "/images/plant/plant4.jpg"];
+      case "skin":
+        return ["/images/rash.jpg"];
+      case "garbage":
+        return ["/images/waste/waste1.png", "/images/waste/waste2.png", "/images/waste/waste3.png", "/images/waste/waste4.png"];
+      case "automobile":
+        return ["/images/automobile/bike1.jpg", "/images/automobile/bike2.jpg", "/images/automobile/bike3.jpg", "/images/automobile/bike4.jpg"];
+      default:
+        return ["/images/fur1.jpg", "/images/fur2.jpg", "/images/fur3.jpg", "/images/fur4.jpg"];
+    }
+  })()
 
   useEffect(() => {
     if (isCameraOpen) {

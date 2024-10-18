@@ -12,7 +12,8 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { PrivyProvider } from '@privy-io/react-auth';
 import { baseSepolia } from 'viem/chains';
 import type { PrivyClientConfig } from '@privy-io/react-auth';
-
+import store from "./store/store";
+import { Provider } from 'react-redux';
 
 //  Chain Configuration
 
@@ -26,14 +27,14 @@ export const wagmiConfig = createConfig({
 
 const privyConfig: PrivyClientConfig = {
   appearance: {
-    walletList: ['coinbase_wallet'], 
+    walletList: ['coinbase_wallet'],
   },
-  externalWallets: { 
-    coinbaseWallet: { 
+  externalWallets: {
+    coinbaseWallet: {
       // Valid connection options include 'eoaOnly' (default), 'smartWalletOnly', or 'all'
-      connectionOptions: 'smartWalletOnly', 
-    }, 
-  }, 
+      connectionOptions: 'smartWalletOnly',
+    },
+  },
   embeddedWallets: {
     createOnLogin: 'users-without-wallets',
     requireUserPasswordOnCreate: true,
@@ -60,9 +61,9 @@ root.render(
     >
       <QueryClientProvider client={queryClient}>
         <WagmiProvider config={wagmiConfig}>
-
-          <App />
-
+          <Provider store={store}>
+            <App />
+          </Provider>
         </WagmiProvider>
       </QueryClientProvider>
     </PrivyProvider>
