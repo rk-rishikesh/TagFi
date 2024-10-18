@@ -43,22 +43,22 @@ const bananaData = [
 
 const automobileData = [
   {
-    img: "/images/automobile/bike1.jpg",
+    img: "/images/automobile/bk1.jpg",
     question: "Rate the Automobile",
     properties: ["Bike", "Car", "Truck", "Auto"]
   },
   {
-    img: "/images/automobile/bike2.jpg",
+    img: "/images/automobile/bk2.jpg",
     question: "Rate the Automobile",
     properties: ["Bike", "Car", "Truck", "Auto"]
   },
   {
-    img: "/images/automobile/bike3.jpg",
+    img: "/images/automobile/bk3.jpg",
     question: "Rate the Automobile",
     properties: ["Bike", "Car", "Truck", "Auto"]
   },
   {
-    img: "/images/automobile/bike4.jpg",
+    img: "/images/automobile/bk4.jpg",
     question: "Rate the Automobile",
     properties: ["Bike", "Car", "Truck", "Auto"]
   },
@@ -66,58 +66,46 @@ const automobileData = [
 
 const plantData = [
   {
-    img: "/images/plant/plant1.jpg",
+    img: "/images/plant/pl1.jpg",
     question: "Rate the Plant",
     properties: ["Herbs", "Shrubs", "Trees", "Climbers"]
   },
   {
-    img: "/images/plant/plant2.jpg",
+    img: "/images/plant/pl2.jpg",
     question: "Rate the Plant",
     properties: ["Herbs", "Shrubs", "Trees", "Climbers"]
   },
   {
-    img: "/images/plant/plant3.jpg",
+    img: "/images/plant/pl3.jpg",
     question: "Rate the Plant",
     properties: ["Herbs", "Shrubs", "Trees", "Climbers"]
   },
   {
-    img: "/images/plant/plant4.jpg",
+    img: "/images/plant/pl4.jpg",
     question: "Rate the Plant",
     properties: ["Herbs", "Shrubs", "Trees", "Climbers"]
   }
 ];
 
-const rashData = [
-  {
-    img: "/images/rash.jpg",
-    question: "Rate the Rash",
-    properties: ["Rash", "Rash", "Rash", "Rash"]
-  },
-  {
-    img: "/images/rash.jpg",
-    question: "Rate the Rash",
-    properties: ["Rash", "Rash", "Rash", "Rash"]
-  },
-];
 
 const garbageData = [
   {
-    img: "/images/waste/waste1.png",
+    img: "/images/waste/gab1.jpg",
     question: "Rate the Garbage",
     properties: ["Organic", "Paper", "Plastic", "Glass"]
   },
   {
-    img: "/images/waste/waste2.png",
+    img: "/images/waste/gab2.jpg",
     question: "Rate the Garbage",
     properties: ["Organic", "Paper", "Plastic", "Glass"]
   },
   {
-    img: "/images/waste/waste3.png",
+    img: "/images/waste/gab3.jpg",
     question: "Rate the Garbage",
     properties: ["Organic", "Paper", "Plastic", "Glass"]
   },
   {
-    img: "/images/waste/waste4.png",
+    img: "/images/waste/gab4.jpg",
     question: "Rate the Garbage",
     properties: ["Organic", "Paper", "Plastic", "Glass"]
   }
@@ -152,8 +140,6 @@ const FruitConfirmationScreen = () => {
         return garbageData;
       case 'automobile':
         return automobileData;
-      case 'skin':
-        return rashData;
       default:
         return bananaData;
     }
@@ -202,7 +188,9 @@ const FruitConfirmationScreen = () => {
       <div
         id="cat-details"
         className="bg-cover bg-center bg-no-repeat flex flex-col rounded-3xl flex-grow mx-4 my-5 sm:mx-8 sm:my-6"
-        style={{ backgroundImage: `url(${fruitData[currentIndex].img})` }}
+        style={{
+          backgroundImage: `url(${fruitData[currentIndex].img})`
+        }}
       >
         {ready && authenticated && (
           <div className="flex justify-start p-5">

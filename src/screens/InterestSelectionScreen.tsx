@@ -43,7 +43,7 @@ const InterestSelectionScreen = () => {
           <img src="/images/waste/waste.jpg" className="w-full h-[131px] rounded-lg" />
           <p className="text-white text-2xl flex justify-center items-center pt-2">Waste / Garbage</p>
         </div>
-        <div onClick={() => handleCategorySelection("skin", "/screen7")} className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">
+        <div onClick={() => handleCategorySelection("skin", "/screen3")} className="group rounded-lg bg-[#818181] p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#383838]">
           <img src="/images/skin-rash.jpg" className="w-full h-[131px] rounded-lg" />
           <p className="text-white text-2xl flex justify-center items-center pt-2">Skin Rashes</p>
         </div>

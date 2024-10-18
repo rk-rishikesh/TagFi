@@ -8,6 +8,9 @@ import type { SendTransactionVariables } from 'wagmi/query';
 import type { Config } from 'wagmi';
 import { useAccount, useBalance } from "wagmi";
 import { usePrivy } from "@privy-io/react-auth";
+import { CategoryState } from "../store/stringSlice";
+import { RootState } from "../store/store";
+import { useSelector } from 'react-redux';
 
 const catData = [
   { img: "/images/cat1.jpg", question: "Is this a cat?" },
@@ -17,15 +20,15 @@ const catData = [
   { img: "/images/cat5.jpg", question: "Is this a cat?" },
 ];
 
-const userData = [
-  { img: "/images/users/user1.png" },
-  { img: "/images/users/user2.png" },
-  { img: "/images/users/user3.png" },
-  { img: "/images/users/user4.png" },
-  { img: "/images/users/user5.png" },
+const rashData = [
+  { img: "/images/rash/rash1.jpg", question: "Is this a rash?" },
+  { img: "/images/rash/rash2.jpg", question: "Is this a rash?" },
+  { img: "/images/rash/rash3.jpg", question: "Is this a rash?" },
+  { img: "/images/rash/rash4.jpg", question: "Is this a rash?" },
 ];
 
 const CatConfirmationScreen = () => {
+  const category = useSelector((state: RootState) => state.category.category) as CategoryState;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [bal, setBal] = useState(0);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -53,15 +56,16 @@ const CatConfirmationScreen = () => {
       hash,
     });
 
-    useEffect(() => {
-      if (addressData) {
-        setBal(Number(addressData?.formatted) * 2500)
-      }
-    });
+  useEffect(() => {
+    if (addressData) {
+      setBal(Number(addressData?.formatted) * 2500)
+    }
+  });
 
+  const currentData = category === "cat" ? catData : rashData;
 
   const onTaskComplete = async () => {
-    if (currentIndex == 2) {
+    if (currentIndex === 2) {
       setIsPopupVisible(true);
       const transactionRequest: SendTransactionVariables<Config, number> = {
         account: sa,
@@ -69,10 +73,10 @@ const CatConfirmationScreen = () => {
         value: parseEther('0.00001'),
         type: 'eip1559',
       };
-      sendTransaction(transactionRequest)
+      sendTransaction(transactionRequest);
       console.log(hash);
     } else {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % catData.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % currentData.length);
     }
   };
 
@@ -87,9 +91,9 @@ const CatConfirmationScreen = () => {
   };
 
   const handleKeepTagging = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % catData.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % currentData.length);
     handleClosePopup();
-    setBal(Number(addressData?.formatted) * 2500)
+    setBal(Number(addressData?.formatted) * 2500);
   };
 
   return (
@@ -97,7 +101,7 @@ const CatConfirmationScreen = () => {
       <div
         id="cat-details"
         className="bg-cover bg-center bg-no-repeat flex flex-col rounded-3xl flex-grow mx-4 my-5 sm:mx-8 sm:my-6"
-        style={{ backgroundImage: `url(${catData[currentIndex].img})` }}
+        style={{ backgroundImage: `url(${currentData[currentIndex].img})` }}
       >
         {ready && authenticated && (
           <div className="flex justify-start p-5">
@@ -112,7 +116,7 @@ const CatConfirmationScreen = () => {
         <div className="flex flex-col items-center flex-grow p-4 sm:p-5">
           <div className="relative w-full flex-grow flex items-center justify-center"></div>
           <span className="text-lg mt-4 bg-white p-3 rounded-md shadow-[10px_10px_#727774] sm:text-xl">
-            {catData[currentIndex].question}
+            {currentData[currentIndex].question}
           </span>
           <div className="flex space-x-4 mt-4 w-10/12 justify-between">
             <button
